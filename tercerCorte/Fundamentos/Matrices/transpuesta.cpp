@@ -48,4 +48,12 @@ int main(){
         cout<<endl;
     }
 
+    cout<<"\nY si uso j primero?\n";
+
+    for(int i = 0; i<3; i++){
+        for(int j = 0; j<3; j++){
+            cout<<matriz[j][i]<<" ";
+        }
+        cout<<endl;
+    }
 }
