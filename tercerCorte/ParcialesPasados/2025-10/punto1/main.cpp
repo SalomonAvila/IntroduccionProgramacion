@@ -1,54 +1,36 @@
 #include <iostream>
-
 using namespace std;
 
-//Aca ponemos un maximo arbitrario, puede ser mas o no
-bool sobrevive(char matriz[][100], int m, int n, int posx, int posy, int r){
-    //Revisamos la posicion de la oveja
-    if(posx > n || posy > m){
-        cout<<"No es valida la posicion de la oveja"<<endl;
-        return false;
-    }else{
-        int comida = 0, agua = 0;
-        //Evaluamos los limites del radio
-        int limiteXI = max((posx-r),0);
-        int limiteXD = min((posx+r),n);
-        int limiteYAR = max((posy-r),0);
-        int limiteYAB = min((posy+r),m);
+bool sobrevive(char matriz[][100], int m, int n, int fila, int col, int r){
+    if(fila < 0 || fila >= m || col < 0 || col >= n) return false;
 
-        for(int i = limiteYAR; i<limiteYAB; i++){
-            for(int j = limiteXI; j<limiteXD; j++){
-                if(matriz[i][j] == 'C') comida++;
-                if(matriz[i][j] == 'A') agua++;
-            }
-        }
+    int comida = 0, agua = 0;
+    int fIni = max(fila - r, 0);
+    int fFin = min(fila + r, m - 1);
+    int cIni = max(col - r, 0);
+    int cFin = min(col + r, n - 1);
 
-        if(comida <4){
-            cout<<"No hay suficientes unidades de comida";
-            return false;
-        }else{
-            if(agua < comida/2){
-                cout<<"No hay suficiente unidades de agua";
-                return false;
-            }else{
-                return true;
-            }
+    for(int i = fIni; i <= fFin; i++){
+        for(int j = cIni; j <= cFin; j++){
+            if(matriz[i][j] == 'C') comida++;
+            else if(matriz[i][j] == 'A') agua++;
         }
     }
+    return comida >= 4 && agua * 2 >= comida;
 }
 
 int main(){
-    int n,m,posx,posy,r; cin>>m>>n>>posx>>posy>>r;
-    char corral[m][n];
-    for(int i = 0; i<m; i++){
-        for(int j = 0; j<n; j++){
-            cin>>corral[i][m];
-        }
-    }
+    int m, n, fila, col, r;
+    char corral[100][100];
+    cin >> m >> n;
+    for(int i = 0; i < m; i++)
+        for(int j = 0; j < n; j++)
+            cin >> corral[i][j];
+    cin >> fila >> col >> r;
 
-
-
-
+    if(sobrevive(corral, m, n, fila, col, r))
+        cout << "La ovejita puede sobrevivir." << endl;
+    else
+        cout << "La ovejita no puede sobrevivir." << endl;
     return 0;
-
 }
