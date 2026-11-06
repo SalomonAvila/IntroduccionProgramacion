@@ -7,10 +7,31 @@ bool sobrevive(char matriz[][100], int m, int n, int fila, int col, int r)
         return false;
 
     int comida = 0, agua = 0;
-    int fIni = max(fila - r, 0);
-    int fFin = min(fila + r, m - 1);
-    int cIni = max(col - r, 0);
-    int cFin = min(col + r, n - 1);
+    int fIni, fFin, cIni, cFin;
+
+    if(fila-r >= 0){
+        fIni = fila-r;
+    }else{
+        fIni = 0;
+    }
+
+    if(fila+r <= m-1){
+        fFin = fila+r;
+    }else{
+        fFin = m-1;
+    }
+
+    if(col+r >= 0){
+        cIni = col+r;
+    }else{
+        cIni = 0;
+    }
+
+    if(col-r <= n-1){
+        cFin = col -r;
+    }else{
+        cFin = n-1;
+    }
 
     for (int i = fIni; i <= fFin; i++)
     {
